@@ -1,0 +1,58 @@
+# Git and IDE metadata
+.git
+.github
+.vscode
+
+# Python virtual environment and caches
+.venv
+backend/.venv
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache
+
+# Node dependencies and build artifacts
+node_modules
+frontend/node_modules
+frontend/dist
+
+# Secrets and environment configurations (NEVER bake into image)
+.env
+.env.*
+*.env
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+*.env.local
+
+# Persistent database, vector store, and auth artifacts
+auth_store.json
+**/auth_store.json
+backend/data/auth_store.json
+data/auth_store.json
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+data/*.db*
+backend/data/*.db*
+backend/data/qdrant_storage/
+data/qdrant_storage/
+backend/uploads/
+uploads/
+
+# Non-production directories and documentation
+docs/
+aws/
+k8s/
+scratch/
+backend/tests/
+tests/
+Research mind ai10
+
+# Logs and test artifacts
+*.log
+screenshot*.png

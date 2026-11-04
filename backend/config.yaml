@@ -1,0 +1,46 @@
+# ResearchMind AI - RAG Configuration File
+# Configurable thresholds for Chunking, Retrieval, Diversity, Reranking, and Generation.
+
+chunking:
+  target_tokens: 600
+  min_tokens: 200
+  max_tokens: 800
+  overlap_percentage: 0.12        # 10-15% overlap
+  split_on_headings: true
+  split_on_paragraphs: true
+  prefix_context: true            # Prefix each chunk with doc title and section
+
+retrieval:
+  top_k_candidates: 25            # 20-30 candidates retrieved across Dense + BM25
+  dense_weight: 1.0
+  bm25_weight: 1.0
+  rrf_k: 60.0
+
+diversity:
+  max_chunks_per_page: 2          # Rule: no more than 2 chunks per page
+  final_context_min: 5            # 5-8 diverse chunks
+  final_context_max: 8
+  mmr_lambda: 0.7                 # Maximal Marginal Relevance trade-off
+
+reranker:
+  enabled: true
+  model_type: "bge-reranker"      # "bge-reranker" (FlashRank ONNX), "cohere", or "calibrated"
+  model_name: "ms-marco-MiniLM-L-12-v2"
+  cohere_model: "rerank-v3.5"
+  min_relevance_score: 0.15
+
+query_understanding:
+  history_rewriting: true
+  acronym_expansion: true
+  num_query_variants: 3           # Generate 2-3 query variants
+  vague_routing_enabled: true     # Route vague queries ("what about this pdf", "summarize") to doc-level path
+
+indexing_extras:
+  document_summary_enabled: true
+  section_summary_enabled: true
+  acronym_glossary_file: "data/glossary.json"
+
+generation:
+  prompt_template_file: "PROMPT.md"
+  min_relevance_threshold: 0.15
+  strict_missing_phrase: "I couldn't find this in the provided documents."

@@ -1,0 +1,23 @@
+[Unit]
+Description=ResearchMind AI Docker Compose Production Service
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/opt/researchmind
+User=ubuntu
+Group=docker
+
+# Pre-checks & pull/build
+ExecStart=/usr/bin/docker compose -f docker-compose.prod.yml up -d --remove-orphans
+ExecStop=/usr/bin/docker compose -f docker-compose.prod.yml down
+ExecReload=/usr/bin/docker compose -f docker-compose.prod.yml restart
+
+TimeoutStartSec=600
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: researchmind
+  labels:
+    app.kubernetes.io/name: researchmind
+    app.kubernetes.io/part-of: researchmind-ai

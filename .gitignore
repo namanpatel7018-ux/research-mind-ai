@@ -1,0 +1,43 @@
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Dependencies and build output
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+dist/
+build/
+coverage/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vite/
+
+# Local databases, indexes, and user data
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+**/qdrant_storage/
+**/auth_store.json
+backend/data/
+backend/uploads/*
+!backend/uploads/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# Logs and local OS/IDE files
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/

@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: researchmind-data-pvc
+  namespace: researchmind
+  labels:
+    app.kubernetes.io/name: researchmind
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: researchmind-uploads-pvc
+  namespace: researchmind
+  labels:
+    app.kubernetes.io/name: researchmind
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi

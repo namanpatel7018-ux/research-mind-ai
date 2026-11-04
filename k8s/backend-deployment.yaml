@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: researchmind-backend
+  namespace: researchmind
+  labels:
+    app.kubernetes.io/name: researchmind-backend
+    app.kubernetes.io/part-of: researchmind-ai
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: researchmind-backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: researchmind-backend
+    spec:
+      containers:
+        - name: backend
+          image: researchmind-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: researchmind-config
+            - secretRef:
+                name: researchmind-secrets
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1024Mi"
+            limits:
+              cpu: "2000m"
+              memory: "4096Mi"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 2
+          volumeMounts:
+            - name: backend-data
+              mountPath: /app/data
+            - name: backend-uploads
+              mountPath: /app/uploads
+      volumes:
+        - name: backend-data
+          persistentVolumeClaim:
+            claimName: researchmind-data-pvc
+        - name: backend-uploads
+          persistentVolumeClaim:
+            claimName: researchmind-uploads-pvc

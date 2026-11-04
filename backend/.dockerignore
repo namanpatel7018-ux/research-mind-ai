@@ -1,0 +1,31 @@
+# Python virtual environments and caches
+.venv
+__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache
+
+# Secrets and local environment files (NEVER copy into container)
+.env
+.env.*
+*.env
+*.env.local
+
+# Persistent database, vector store, and auth artifacts
+auth_store.json
+**/auth_store.json
+data/auth_store.json
+data/*.db*
+data/qdrant_storage/
+uploads/
+
+# Test files and evaluation scripts
+tests/
+test_*.py
+verify_rag_e2e.py
+eval.py
+
+# Locks and logs
+*.log
+data/qdrant_storage/.lock
